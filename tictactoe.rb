@@ -2,7 +2,7 @@
 # Tic Tac Toe 
 
 class TicTacToeBoard
-	attr_reader :game_board, :current_player_symbol, :current_player_name
+	attr_reader :display_board, :game_board, :current_player_symbol, :current_player_name, :game_over
 
 	def initialize
 		@game_board = [1,2,3,4,5,6,7,8,9]
@@ -13,7 +13,7 @@ class TicTacToeBoard
 	end
 
 	def display_board
-		puts "| #{game_board[0]} #{game_board[1]} #{game_board[2]} |\n| #{game_board[3]} #{game_board[4]} #{game_board[5]} |\n| #{game_board[6]} #{game_board[7]} #{game_board[8]} |\n"
+		puts "\n\t| #{game_board[0]} #{game_board[1]} #{game_board[2]} |\n\t| #{game_board[3]} #{game_board[4]} #{game_board[5]} |\n\t| #{game_board[6]} #{game_board[7]} #{game_board[8]} |\n\n"
 	end
 
 	def board_check(player_pick) 
@@ -75,28 +75,28 @@ class TicTacToeBoard
 	end
 end 
 
-start_game.call
-
 def start_game
 	puts "Are you ready to play Tic Tac Toe? (yes/no): "
 	user_answer = gets.chomp
 	unless user_answer.downcase == "no"
-		TicTacToeBoard.new
+		game_on = TicTacToeBoard.new
 		puts "Player 1 is 'X' and Player 2 is 'O' "
-		TicTacToeBoard.display_board
-		game_play
+		game_on.display_board
+		game_play(game_on)
 	end
 end
 
-def game_play
-	until TicTacToeBoard.game_over == true
-		game_turn
+def game_play(game_on)
+	until game_on.game_over == true
+		game_turn(game_on)
 	end
 	puts "Great game!"
 end
 
-def game_turn
-	puts "#{TicTacToeBoard.current_player_name} picks: "
+def game_turn(game_on)
+	print "#{game_on.current_player_name} picks: "
 	player_pick = gets.chomp.to_i
-	TicTacToeBoard.board_check(player_pick)
+	game_on.board_check(player_pick)
 end
+
+start_game
