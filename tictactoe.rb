@@ -2,14 +2,15 @@
 # Tic Tac Toe 
 
 class TicTacToeBoard
-	attr_accessor :display_board, :game_board, :current_player_symbol, :current_player_name, :game_over, :turn_toggle
+	attr_accessor :current_player_symbol, :current_player_name, :game_over, :turn_toggle
+	attr_reader :game_board
 
 	def initialize
 		@game_board = [1,2,3,4,5,6,7,8,9]
 		@current_player_symbol
 		@current_player_name
 		@game_over = false
-		@turn_toggle = rand(1..2) #randomly starts odd or even
+		@turn_toggle = rand(1..2)
 	end
 
 	def display_board
@@ -17,10 +18,10 @@ class TicTacToeBoard
 	end
 
 	def board_check(player_pick)
-		if (1..9).include?(player_pick) #&& game_board[player_pick - 1] == Integer
+		if (1..9).include?(player_pick) && game_board[player_pick - 1].is_a?(Integer)
 			player_choice(player_pick)
 		else
-			puts "Please enter the number a corresponding space not already occupied"
+			puts "\n\n\nPlease enter the number of a corresponding space not already occupied"
 			display_board
 		end
 	end
@@ -32,7 +33,6 @@ class TicTacToeBoard
 	end
 
 	def winner_check
-		puts "winning for #{current_player_name} was checked"
     	case 
 		when game_board[0] == current_player_symbol && game_board[1] == current_player_symbol && game_board[2] == current_player_symbol
 			true
@@ -75,11 +75,11 @@ class TicTacToeBoard
 end 
 
 def start_game
-	puts "Are you ready to play Tic Tac Toe? (yes/no): "
+	puts "\n\nAre you ready to play Tic Tac Toe? (yes/no): "
 	user_answer = gets.chomp
 	unless user_answer.downcase == "no"
 		game_on = TicTacToeBoard.new
-		puts "Player 1 is 'X' and Player 2 is 'O' "
+		puts "\nPlayer 1 is 'X' and Player 2 is 'O' \n"
 		game_on.display_board
 		game_on.next_turn
 		game_play(game_on)
@@ -90,7 +90,7 @@ def game_play(game_on)
 	until game_on.game_over == true
 		game_turn(game_on)
 	end
-	puts "Great game!"
+	puts "Great game!\n\n\n"
 end
 
 def game_turn(game_on)
