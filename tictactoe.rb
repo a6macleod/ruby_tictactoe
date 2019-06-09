@@ -22,6 +22,7 @@ class TicTacToeBoard
 		else
 			puts "Please enter the number a corresponding space not already occupied"
 			display_board
+		end
 	end
 
 	def player_choice(player_pick) 
@@ -33,23 +34,24 @@ class TicTacToeBoard
 
 	def winner_check
     	case player_symbol
-    			when game_board[1] == current_player_symbol && game_board[2] == current_player_symbol && game_board[3] == current_player_symbol
-    				winner_message
-    			when game_board[4] == current_player_symbol && game_board[5] == current_player_symbol && game_board[6] == current_player_symbol
-    				winner_message
-    			when game_board[7] == current_player_symbol && game_board[8] == current_player_symbol && game_board[9] == current_player_symbol
-    				winner_message
-    			when game_board[1] == current_player_symbol && game_board[4] == current_player_symbol && game_board[7] == current_player_symbol
-    				winner_message
-    			when game_board[2] == current_player_symbol && game_board[5] == current_player_symbol && game_board[8] == current_player_symbol
-    				winner_message
-    			when game_board[3] == current_player_symbol && game_board[6] == current_player_symbol && game_board[9] == current_player_symbol
-    				winner_message
-    			when game_board[1] == current_player_symbol && game_board[5] == current_player_symbol && game_board[9] == current_player_symbol
-    				winner_message
-    			when game_board[3] == current_player_symbol && game_board[5] == current_player_symbol && game_board[7] == current_player_symbol
-    				winner_message
-    			end		
+			when game_board[1] == current_player_symbol && game_board[2] == current_player_symbol && game_board[3] == current_player_symbol
+				winner_message
+			when game_board[4] == current_player_symbol && game_board[5] == current_player_symbol && game_board[6] == current_player_symbol
+				winner_message
+			when game_board[7] == current_player_symbol && game_board[8] == current_player_symbol && game_board[9] == current_player_symbol
+				winner_message
+			when game_board[1] == current_player_symbol && game_board[4] == current_player_symbol && game_board[7] == current_player_symbol
+				winner_message
+			when game_board[2] == current_player_symbol && game_board[5] == current_player_symbol && game_board[8] == current_player_symbol
+				winner_message
+			when game_board[3] == current_player_symbol && game_board[6] == current_player_symbol && game_board[9] == current_player_symbol
+				winner_message
+			when game_board[1] == current_player_symbol && game_board[5] == current_player_symbol && game_board[9] == current_player_symbol
+				winner_message
+			when game_board[3] == current_player_symbol && game_board[5] == current_player_symbol && game_board[7] == current_player_symbol
+				winner_message
+			end	
+		end
 	end
 
 	def winner_message
@@ -69,17 +71,21 @@ class TicTacToeBoard
 		else
 			self.current_player_symbol = "O"
 			self.current_player_name = "Player 2"
+		end
 	end
 end 
 
-puts "Are you ready to play Tic Tac Toe? (yes/no): "
+start_game.call
 
-start_game = gets.chomp
-unless start_game.downcase == "no"
-	TicTacToeBoard.new
-	puts "Player 1 is 'X' and Player 2 is 'O' "
-	TicTacToeBoard.display_board
-	game_play
+def start_game
+	puts "Are you ready to play Tic Tac Toe? (yes/no): "
+	user_answer = gets.chomp
+	unless user_answer.downcase == "no"
+		TicTacToeBoard.new
+		puts "Player 1 is 'X' and Player 2 is 'O' "
+		TicTacToeBoard.display_board
+		game_play
+	end
 end
 
 def game_play
