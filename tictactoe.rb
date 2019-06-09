@@ -26,32 +26,29 @@ class TicTacToeBoard
 	end
 
 	def player_choice(player_pick) 
-		array_position = player_pick.to_i - 1
-		game_board[array_position] = current_player_symbol
+		game_board[player_pick - 1] = current_player_symbol
 		display_board
-		#winner_check ? winner_message : next_player
-		next_turn
+		winner_check ? winner_message : next_turn
 	end
 
 	def winner_check
-		puts current_player_symbol
-		puts current_player_name
+		puts "winning for #{current_player_name} was checked"
     	case 
-		when game_board[1] == current_player_symbol && game_board[2] == current_player_symbol && game_board[3] == current_player_symbol
+		when game_board[0] == current_player_symbol && game_board[1] == current_player_symbol && game_board[2] == current_player_symbol
 			true
-		when game_board[4] == current_player_symbol && game_board[5] == current_player_symbol && game_board[6] == current_player_symbol
+		when game_board[3] == current_player_symbol && game_board[4] == current_player_symbol && game_board[5] == current_player_symbol
 			true
-		when game_board[7] == current_player_symbol && game_board[8] == current_player_symbol && game_board[9] == current_player_symbol
+		when game_board[6] == current_player_symbol && game_board[7] == current_player_symbol && game_board[8] == current_player_symbol
+			true
+		when game_board[0] == current_player_symbol && game_board[3] == current_player_symbol && game_board[6] == current_player_symbol
 			true
 		when game_board[1] == current_player_symbol && game_board[4] == current_player_symbol && game_board[7] == current_player_symbol
 			true
 		when game_board[2] == current_player_symbol && game_board[5] == current_player_symbol && game_board[8] == current_player_symbol
 			true
-		when game_board[3] == current_player_symbol && game_board[6] == current_player_symbol && game_board[9] == current_player_symbol
+		when game_board[0] == current_player_symbol && game_board[4] == current_player_symbol && game_board[8] == current_player_symbol
 			true
-		when game_board[1] == current_player_symbol && game_board[5] == current_player_symbol && game_board[9] == current_player_symbol
-			true
-		when game_board[3] == current_player_symbol && game_board[5] == current_player_symbol && game_board[7] == current_player_symbol
+		when game_board[2] == current_player_symbol && game_board[4] == current_player_symbol && game_board[6] == current_player_symbol
 			true
 		end	
 	end	
@@ -62,7 +59,6 @@ class TicTacToeBoard
 	end
 
 	def next_turn
-		winner_check ? winner_message :
 		self.turn_toggle += 1
 		current_player(turn_toggle)
 	end
@@ -98,7 +94,7 @@ def game_play(game_on)
 end
 
 def game_turn(game_on)
-	print "#{game_on.current_player_name}(#{game_on.current_player_symbol}) picks: "
+	print "#{game_on.current_player_name} (#{game_on.current_player_symbol}) picks: "
 	player_pick = gets.chomp.to_i
 	game_on.board_check(player_pick)
 end
