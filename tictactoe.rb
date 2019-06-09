@@ -2,7 +2,7 @@
 # Tic Tac Toe 
 
 class TicTacToeBoard
-	attr_reader :display_board, :game_board, :current_player_symbol, :current_player_name, :game_over
+	attr_accessor :display_board, :game_board, :current_player_symbol, :current_player_name, :game_over, :turn_toggle
 
 	def initialize
 		@game_board = [1,2,3,4,5,6,7,8,9]
@@ -16,8 +16,8 @@ class TicTacToeBoard
 		puts "\n\t| #{game_board[0]} #{game_board[1]} #{game_board[2]} |\n\t| #{game_board[3]} #{game_board[4]} #{game_board[5]} |\n\t| #{game_board[6]} #{game_board[7]} #{game_board[8]} |\n\n"
 	end
 
-	def board_check(player_pick) 
-		if player_pick.include?(1..9) && game_board[player_pick - 1] == Integer
+	def board_check(player_pick)
+		if (1..9).include?(player_pick) #&& game_board[player_pick - 1] == Integer
 			player_choice(player_pick)
 		else
 			puts "Please enter the number a corresponding space not already occupied"
@@ -29,39 +29,42 @@ class TicTacToeBoard
 		array_position = player_pick.to_i - 1
 		game_board[array_position] = current_player_symbol
 		display_board
-		if winner_check ? winner_message : next_player
+		#winner_check ? winner_message : next_player
+		next_turn
 	end
 
 	def winner_check
-    	case player_symbol
-			when game_board[1] == current_player_symbol && game_board[2] == current_player_symbol && game_board[3] == current_player_symbol
-				winner_message
-			when game_board[4] == current_player_symbol && game_board[5] == current_player_symbol && game_board[6] == current_player_symbol
-				winner_message
-			when game_board[7] == current_player_symbol && game_board[8] == current_player_symbol && game_board[9] == current_player_symbol
-				winner_message
-			when game_board[1] == current_player_symbol && game_board[4] == current_player_symbol && game_board[7] == current_player_symbol
-				winner_message
-			when game_board[2] == current_player_symbol && game_board[5] == current_player_symbol && game_board[8] == current_player_symbol
-				winner_message
-			when game_board[3] == current_player_symbol && game_board[6] == current_player_symbol && game_board[9] == current_player_symbol
-				winner_message
-			when game_board[1] == current_player_symbol && game_board[5] == current_player_symbol && game_board[9] == current_player_symbol
-				winner_message
-			when game_board[3] == current_player_symbol && game_board[5] == current_player_symbol && game_board[7] == current_player_symbol
-				winner_message
-			end	
-		end
-	end
+		puts current_player_symbol
+		puts current_player_name
+    	case 
+		when game_board[1] == current_player_symbol && game_board[2] == current_player_symbol && game_board[3] == current_player_symbol
+			true
+		when game_board[4] == current_player_symbol && game_board[5] == current_player_symbol && game_board[6] == current_player_symbol
+			true
+		when game_board[7] == current_player_symbol && game_board[8] == current_player_symbol && game_board[9] == current_player_symbol
+			true
+		when game_board[1] == current_player_symbol && game_board[4] == current_player_symbol && game_board[7] == current_player_symbol
+			true
+		when game_board[2] == current_player_symbol && game_board[5] == current_player_symbol && game_board[8] == current_player_symbol
+			true
+		when game_board[3] == current_player_symbol && game_board[6] == current_player_symbol && game_board[9] == current_player_symbol
+			true
+		when game_board[1] == current_player_symbol && game_board[5] == current_player_symbol && game_board[9] == current_player_symbol
+			true
+		when game_board[3] == current_player_symbol && game_board[5] == current_player_symbol && game_board[7] == current_player_symbol
+			true
+		end	
+	end	
 
 	def winner_message
 		puts "WOW #{current_player_name} has won!"
 		self.game_over = true
 	end
 
-	def next_player(turn_toggle)
-		turn_toggle += 1
-		current_player
+	def next_turn
+		winner_check ? winner_message :
+		self.turn_toggle += 1
+		current_player(turn_toggle)
 	end
 
 	def current_player(turn_toggle)
@@ -82,6 +85,7 @@ def start_game
 		game_on = TicTacToeBoard.new
 		puts "Player 1 is 'X' and Player 2 is 'O' "
 		game_on.display_board
+		game_on.next_turn
 		game_play(game_on)
 	end
 end
@@ -94,7 +98,7 @@ def game_play(game_on)
 end
 
 def game_turn(game_on)
-	print "#{game_on.current_player_name} picks: "
+	print "#{game_on.current_player_name}(#{game_on.current_player_symbol}) picks: "
 	player_pick = gets.chomp.to_i
 	game_on.board_check(player_pick)
 end
