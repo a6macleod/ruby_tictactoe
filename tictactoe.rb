@@ -2,7 +2,7 @@
 # Tic Tac Toe 
 
 class TicTacToeBoard
-	attr_accessor :current_player_symbol, :current_player_name, :game_over, :turn_toggle
+	attr_accessor :current_player_symbol, :current_player_name, :game_over,:turn_toggle
 	attr_reader :game_board
 
 	def initialize
