@@ -7,8 +7,8 @@ class TicTacToeBoard
 
 	def initialize
 		@game_board = [1,2,3,4,5,6,7,8,9]
-		@current_player_symbol
-		@current_player_name
+		@current_player_symbol = ""
+		@current_player_name = ""
 		@game_over = false
 		@turn_toggle = rand(1..2)
 	end
@@ -77,12 +77,14 @@ end
 def start_game
 	puts "\n\nAre you ready to play Tic Tac Toe? (yes/no): "
 	user_answer = gets.chomp
-	unless user_answer.downcase == "no"
+	if user_answer.downcase == "yes"
 		game_on = TicTacToeBoard.new
 		puts "\nPlayer 1 is 'X' and Player 2 is 'O' \n"
 		game_on.display_board
 		game_on.next_turn
 		game_play(game_on)
+	else
+		puts "ok bye!"
 	end
 end
 
